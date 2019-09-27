@@ -17,11 +17,11 @@ app.use(function validateBearerToken(req, res ,next) {
     next();
 })
 
-function displayAll(req, res) {
+function displayMovies(req, res) {
     return res.json(movies)
 }
 
-function displayMovies(req,res) {
+function displaySelection(req,res) {
     const { genre, country, avg_vote } = req.query;
     let results = movies;
 
@@ -48,8 +48,8 @@ function displayMovies(req,res) {
     res.json(results);
 }
 
-app.get('/movies', displayAll);
-app.get('/movies_search', displayMovies);
+app.get('/movies', displayMovies);
+app.get('/movies_search', displaySelection);
 
 app.listen(8000, () => {
     console.log(`Server listening at http://localhost:8000`)
