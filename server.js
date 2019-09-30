@@ -2,10 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const movies = require('./movie-data.js');
-
+const cors = require('cors');
 console.log(process.env.API_TOKEN);
 const app = express();
 app.use(morgan('dev'));
+app.use(cors());
+
 
 app.use(function validateBearerToken(req, res ,next) {
     const authToken = req.get('Authorization');
@@ -49,7 +51,7 @@ function displaySelection(req,res) {
 }
 
 app.get('/movies', displayMovies);
-app.get('/movies_search', displaySelection);
+app.get('/movies/search', displaySelection);
 
 app.listen(8000, () => {
     console.log(`Server listening at http://localhost:8000`)
