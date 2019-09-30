@@ -27,11 +27,6 @@ function displayMovies(req, res) {
 function displaySelection(req,res) {
     const { genre, country, avg_vote } = req.query;
     let results = movies;
-
-
-    if(!['genre' || 'country' || 'avg_vote']) {
-        return res.status(400).send('Invalid Entry. Search options include genre, country or avg_vote only!')
-        }
     
     if(genre) {
         results = results.filter(movie => movie.genre.toLowerCase().includes(genre.toLowerCase()))
@@ -45,7 +40,10 @@ function displaySelection(req,res) {
         let num = Number(avg_vote)
         results = results.filter(movie => movie.avg_vote >= num)
     }
-    res.json(results);
+    else{
+        return res.json(results);
+    }
+    
 }
 
 app.get('/movies', displayMovies);
